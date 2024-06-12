@@ -12,7 +12,7 @@
 #include "log.h"
 #include "timer_event.h"
 #include "io_thread.h"
-
+#include "io_thread_group.h"
 
 void test_io_thread(){
     int listenfd = socket(AF_INET,SOCK_STREAM,0);
@@ -70,12 +70,23 @@ void test_io_thread(){
     );  //这块啥意思，这块i可以增加是因为后面删掉之后又加上了，也就是说，这个定时器循环使用了，但是为什么触发35次停止
 
 
-    rocket::IOThread io_thread;
-    io_thread.getEventLoop()->addEpollEvent(event);
-    io_thread.getEventLoop()->addTimerEvent(timer_event);
-    io_thread.start();
-    io_thread.join();  //这里必修要等待子线程运行完，如果不调用的话，有可能在唤醒loop之前，就直接就运行主线程，那么就会进行析构（也就是说运行到io_thread.cc中的Main的DEBUGLOG("IOThread %d start loop", thread->m_thread_id);之后就直接运行主函数的析构函数，event_loop事件清空，然后在运行子线程，loop就不会进行，直接打印end子线程
+    // rocket::IOThread io_thread;
+    // io_thread.getEventLoop()->addEpollEvent(event);
+    // io_thread.getEventLoop()->addTimerEvent(timer_event);
+    // io_thread.start();
+    // io_thread.join();  //这里必修要等待子线程运行完，如果不调用的话，有可能在唤醒loop之前，就直接就运行主线程，那么就会进行析构（也就是说运行到io_thread.cc中的Main的DEBUGLOG("IOThread %d start loop", thread->m_thread_id);之后就直接运行主函数的析构函数，event_loop事件清空，然后在运行子线程，loop就不会进行，直接打印end子线程
 
+
+   rocket::IOThreadGroup io_thread_group(2);
+   io_thread_group.getIOThread()->getEventLoop()->addEpollEvent(event);
+   io_thread_group.getIOThread()->getEventLoop()->addTimerEvent(timer_event);
+
+   rocket::IOThread* io_thread2 = io_thread_group.getIOThread();
+
+   io_thread2->getEventLoop()->addTimerEvent(timer_event);
+
+   io_thread_group.start();
+   io_thread_group.join();
 }
 
 int main(){

@@ -281,7 +281,8 @@ CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o: testcases/test_even
   /usr/include/c++/11/bits/istream.tcc \
   include/net/io_thread.h \
   /usr/include/semaphore.h \
-  /usr/include/x86_64-linux-gnu/bits/semaphore.h
+  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+  include/net/io_thread_group.h
 
 CMakeFiles/test_eventloop.dir/tinyrpc/common/config.cc.o: tinyrpc/common/config.cc \
   /usr/include/stdc-predef.h \
@@ -2571,6 +2572,8 @@ include/util.h:
 /usr/include/c++/11/sstream:
 
 /usr/include/x86_64-linux-gnu/sys/time.h:
+
+include/net/io_thread_group.h:
 
 tinyrpc/common/tinyxmlparser.cpp:
 

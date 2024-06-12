@@ -21,6 +21,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/test_log.dir/tinyrpc/net/fd_event.cc.o.d"
   "CMakeFiles/test_log.dir/tinyrpc/net/io_thread.cc.o"
   "CMakeFiles/test_log.dir/tinyrpc/net/io_thread.cc.o.d"
+  "CMakeFiles/test_log.dir/tinyrpc/net/io_thread_group.cc.o"
+  "CMakeFiles/test_log.dir/tinyrpc/net/io_thread_group.cc.o.d"
   "CMakeFiles/test_log.dir/tinyrpc/net/timer.cc.o"
   "CMakeFiles/test_log.dir/tinyrpc/net/timer.cc.o.d"
   "CMakeFiles/test_log.dir/tinyrpc/net/timer_event.cc.o"

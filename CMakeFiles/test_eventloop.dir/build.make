@@ -209,10 +209,24 @@ CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wsh/code_rpc/tinyrpc/tinyrpc/net/io_thread.cc -o CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread.cc.s
 
+CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o: CMakeFiles/test_eventloop.dir/flags.make
+CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o: tinyrpc/net/io_thread_group.cc
+CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o: CMakeFiles/test_eventloop.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o -MF CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o.d -o CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o -c /home/wsh/code_rpc/tinyrpc/tinyrpc/net/io_thread_group.cc
+
+CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wsh/code_rpc/tinyrpc/tinyrpc/net/io_thread_group.cc > CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.i
+
+CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wsh/code_rpc/tinyrpc/tinyrpc/net/io_thread_group.cc -o CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.s
+
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o: CMakeFiles/test_eventloop.dir/flags.make
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o: tinyrpc/net/timer.cc
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o: CMakeFiles/test_eventloop.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o -MF CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o.d -o CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o -c /home/wsh/code_rpc/tinyrpc/tinyrpc/net/timer.cc
 
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.i: cmake_force
@@ -226,7 +240,7 @@ CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.s: cmake_force
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o: CMakeFiles/test_eventloop.dir/flags.make
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o: tinyrpc/net/timer_event.cc
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o: CMakeFiles/test_eventloop.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o -MF CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o.d -o CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o -c /home/wsh/code_rpc/tinyrpc/tinyrpc/net/timer_event.cc
 
 CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.i: cmake_force
@@ -240,7 +254,7 @@ CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.s: cmake_force
 CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o: CMakeFiles/test_eventloop.dir/flags.make
 CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o: tinyrpc/net/wakeup_fd_event.cc
 CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o: CMakeFiles/test_eventloop.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o -MF CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o.d -o CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o -c /home/wsh/code_rpc/tinyrpc/tinyrpc/net/wakeup_fd_event.cc
 
 CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.i: cmake_force
@@ -254,7 +268,7 @@ CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.s: cmake_force
 CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o: CMakeFiles/test_eventloop.dir/flags.make
 CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o: testcases/test_eventloop.cc
 CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o: CMakeFiles/test_eventloop.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o -MF CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o.d -o CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o -c /home/wsh/code_rpc/tinyrpc/testcases/test_eventloop.cc
 
 CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.i: cmake_force
@@ -277,6 +291,7 @@ test_eventloop_OBJECTS = \
 "CMakeFiles/test_eventloop.dir/tinyrpc/net/eventloop.cc.o" \
 "CMakeFiles/test_eventloop.dir/tinyrpc/net/fd_event.cc.o" \
 "CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread.cc.o" \
+"CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o" \
 "CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o" \
 "CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o" \
 "CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o" \
@@ -295,13 +310,14 @@ bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/common/util.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/eventloop.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/fd_event.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread.cc.o
+bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/timer.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/timer_event.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/tinyrpc/net/wakeup_fd_event.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/testcases/test_eventloop.cc.o
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/build.make
 bin/test_eventloop: CMakeFiles/test_eventloop.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable bin/test_eventloop"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wsh/code_rpc/tinyrpc/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable bin/test_eventloop"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_eventloop.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

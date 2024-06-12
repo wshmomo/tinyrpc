@@ -460,6 +460,33 @@ tinyrpc/net/io_thread.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eventloop.dir/build.make CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread.cc.s
 .PHONY : tinyrpc/net/io_thread.cc.s
 
+tinyrpc/net/io_thread_group.o: tinyrpc/net/io_thread_group.cc.o
+.PHONY : tinyrpc/net/io_thread_group.o
+
+# target to build an object file
+tinyrpc/net/io_thread_group.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_log.dir/build.make CMakeFiles/test_log.dir/tinyrpc/net/io_thread_group.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eventloop.dir/build.make CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.o
+.PHONY : tinyrpc/net/io_thread_group.cc.o
+
+tinyrpc/net/io_thread_group.i: tinyrpc/net/io_thread_group.cc.i
+.PHONY : tinyrpc/net/io_thread_group.i
+
+# target to preprocess a source file
+tinyrpc/net/io_thread_group.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_log.dir/build.make CMakeFiles/test_log.dir/tinyrpc/net/io_thread_group.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eventloop.dir/build.make CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.i
+.PHONY : tinyrpc/net/io_thread_group.cc.i
+
+tinyrpc/net/io_thread_group.s: tinyrpc/net/io_thread_group.cc.s
+.PHONY : tinyrpc/net/io_thread_group.s
+
+# target to generate assembly for a file
+tinyrpc/net/io_thread_group.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_log.dir/build.make CMakeFiles/test_log.dir/tinyrpc/net/io_thread_group.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eventloop.dir/build.make CMakeFiles/test_eventloop.dir/tinyrpc/net/io_thread_group.cc.s
+.PHONY : tinyrpc/net/io_thread_group.cc.s
+
 tinyrpc/net/timer.o: tinyrpc/net/timer.cc.o
 .PHONY : tinyrpc/net/timer.o
 
@@ -587,6 +614,9 @@ help:
 	@echo "... tinyrpc/net/io_thread.o"
 	@echo "... tinyrpc/net/io_thread.i"
 	@echo "... tinyrpc/net/io_thread.s"
+	@echo "... tinyrpc/net/io_thread_group.o"
+	@echo "... tinyrpc/net/io_thread_group.i"
+	@echo "... tinyrpc/net/io_thread_group.s"
 	@echo "... tinyrpc/net/timer.o"
 	@echo "... tinyrpc/net/timer.i"
 	@echo "... tinyrpc/net/timer.s"
