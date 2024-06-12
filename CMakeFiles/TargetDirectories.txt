@@ -1,0 +1,4 @@
+/home/wsh/code_rpc/tinyrpc/CMakeFiles/test_log.dir
+/home/wsh/code_rpc/tinyrpc/CMakeFiles/test_eventloop.dir
+/home/wsh/code_rpc/tinyrpc/CMakeFiles/edit_cache.dir
+/home/wsh/code_rpc/tinyrpc/CMakeFiles/rebuild_cache.dir
