@@ -18,8 +18,8 @@ namespace rocket{
         //整包的长度（4个字节）
         int32_t m_pk_len {0};
 
-        int32_t m_req_id_len {0};  //msg_id的长度
-        //msgId继承父类这里指的是req_id
+        int32_t m_msg_id_len {0};  //msg_id的长度
+        //msgId继承父类这里指的是msg_id
 
         //方法名长度和方法名
         int32_t m_method_len {0};

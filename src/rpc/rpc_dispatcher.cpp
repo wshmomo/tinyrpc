@@ -34,7 +34,7 @@ namespace rocket{
         std::string service_name;
         std::string method_name;
 
-        rsp_protocol->m_req_id =  req_protocol->m_req_id;
+        rsp_protocol->m_msg_id =  req_protocol->m_msg_id;
         rsp_protocol->m_method_name = req_protocol->m_method_name;
 
         if(!parseServiceFullName(method_full_name,service_name,method_name)){
@@ -46,7 +46,7 @@ namespace rocket{
 
         auto it = m_service_map.find(service_name);
         if(it == m_service_map.end()){
-            ERRORLOG("%s | service name[%s] not found", req_protocol->m_req_id.c_str(), service_name.c_str());
+            ERRORLOG("%s | service name[%s] not found", req_protocol->m_msg_id.c_str(), service_name.c_str());
             setTinyPBError(rsp_protocol,ERROR_SERVICE_NOT_FOUND, "service not find");
             return;
         }
@@ -54,7 +54,7 @@ namespace rocket{
         service_s_ptr service = (*it).second;
         const google::protobuf::MethodDescriptor* method  = service->GetDescriptor()->FindMethodByName(method_name);  //makeOrder，方法的名字，也就是业务
         if(method == NULL){
-            ERRORLOG("%s | method name[%s] not found in service[%s]", req_protocol->m_req_id.c_str(), method_name.c_str(), service_name.c_str());
+            ERRORLOG("%s | method name[%s] not found in service[%s]", req_protocol->m_msg_id.c_str(), method_name.c_str(), service_name.c_str());
             setTinyPBError(rsp_protocol,ERROR_SERVICE_NOT_FOUND, "method not find");
             return;            
         }
@@ -63,7 +63,7 @@ namespace rocket{
         //反序列化，将pb_data反序列化为message，也就是反序列化成protobuf类型的东西
          //注意这里是调用的protocol里面的
         if(req_msg->ParseFromString(req_protocol->m_pb_data)){
-            ERRORLOG("%s | deserilize error", req_protocol->m_req_id.c_str(), method_name.c_str(), service_name.c_str());
+            ERRORLOG("%s | deserilize error", req_protocol->m_msg_id.c_str(), method_name.c_str(), service_name.c_str());
             setTinyPBError(rsp_protocol,ERROR_FAILED_DESERIALIZE, "deserilize error");
             if(req_msg != NULL){
                 delete req_msg;
@@ -73,7 +73,7 @@ namespace rocket{
             return;  
         }
 
-        INFOLOG("req_id[%s], get rpc request[%s]", req_protocol->m_req_id.c_str(), req_msg->ShortDebugString().c_str());
+        INFOLOG("msg_id[%s], get rpc request[%s]", req_protocol->m_msg_id.c_str(), req_msg->ShortDebugString().c_str());
 
         google::protobuf::Message* rsp_msg = service->GetResponsePrototype(method).New();  //从业务中方法中得到的reponse
 
@@ -82,7 +82,7 @@ namespace rocket{
 
         rpccontroller.SetLocalAddr(connection->getLocaladdr());
         rpccontroller.SetPeerAddr(connection->getPeeraddr());
-        rpccontroller.SetReqId(req_protocol->m_req_id);
+        rpccontroller.SetMsgId(req_protocol->m_msg_id);
 
 
         service->CallMethod(method,&rpccontroller,req_msg,rsp_msg,NULL);   
@@ -90,7 +90,7 @@ namespace rocket{
 
         //将这个rsp_msg对象序列化，然后写入到rsp_protocol->m_pb_data
         if(!rsp_msg->SerializeToString(&(rsp_protocol->m_pb_data))){
-            ERRORLOG("%s | serilize error, origin message [%s]", req_protocol->m_req_id.c_str(), rsp_msg->ShortDebugString().c_str());
+            ERRORLOG("%s | serilize error, origin message [%s]", req_protocol->m_msg_id.c_str(), rsp_msg->ShortDebugString().c_str());
             setTinyPBError(rsp_protocol,ERROR_FAILED_SERIALIZE, "serilize error");
             if(req_msg != NULL){
                 delete req_msg;
@@ -106,7 +106,7 @@ namespace rocket{
 
         rsp_protocol->m_err_code = 0;
 
-        INFOLOG("%s | dispatch success, request[%s], reponse[%s]", req_protocol->m_req_id.c_str(), req_msg->ShortDebugString().c_str(), rsp_msg->ShortDebugString().c_str());
+        INFOLOG("%s | dispatch success, request[%s], reponse[%s]", req_protocol->m_msg_id.c_str(), req_msg->ShortDebugString().c_str(), rsp_msg->ShortDebugString().c_str());
         delete req_msg;
         delete rsp_msg;
         req_msg = NULL;

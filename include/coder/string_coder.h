@@ -37,7 +37,7 @@ namespace rocket{
             // StringProtocol* msg = new StringProtocol();
             shared_ptr<StringProtocol> msg = make_shared<StringProtocol>();
             msg->info = info;
-            msg->m_req_id = "123456";  //其实这里还有个逻辑问题，你为什么可以知道这个包的名称，我们需要去进行查询，而不是进行直接设置
+            msg->m_msg_id = "123456";  //其实这里还有个逻辑问题，你为什么可以知道这个包的名称，我们需要去进行查询，而不是进行直接设置
             out_messages.push_back(msg);
             
         }

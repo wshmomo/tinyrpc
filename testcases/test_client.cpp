@@ -57,7 +57,7 @@ void test_tcp_client(){
         DEBUGLOG("connect to [%s] success", addr->toString().c_str());
         // shared_ptr<rocket::StringProtocol> message = make_shared<rocket::StringProtocol>();
         // message->info = "hello rocket";
-        // message->m_req_id = "123456";
+        // message->m_msg_id = "123456";
         // //先发送消息，然后在等其对应的回包，进行读取
         // client.writeMessage(message, [](rocket::AbstractProtocol::s_ptr msg_ptr){
         //     DEBUGLOG("send message success");
@@ -66,7 +66,7 @@ void test_tcp_client(){
 
         // client.readMessage("123456", [](rocket::AbstractProtocol::s_ptr msg_ptr){
         //     shared_ptr<rocket::StringProtocol> message = dynamic_pointer_cast<rocket::StringProtocol> (msg_ptr); //将父类的智能指针转化为子类的智能指针
-        //     DEBUGLOG("read message success, req_if[%s], get response %s",message->m_req_id.c_str(), message->info.c_str());
+        //     DEBUGLOG("read message success, req_if[%s], get response %s",message->m_msg_id.c_str(), message->info.c_str());
 
         // });
 
@@ -77,7 +77,7 @@ void test_tcp_client(){
 
         shared_ptr<rocket::TinyPBProtocol> message = make_shared<rocket::TinyPBProtocol>();
         
-        message->m_req_id = "123456789";
+        message->m_msg_id = "123456789";
         message->m_pb_data = "test pb data";
         //先发送消息，然后在等其对应的回包，进行读取
         client.writeMessage(message, [](rocket::AbstractProtocol::s_ptr msg_ptr){
@@ -87,7 +87,7 @@ void test_tcp_client(){
 
         client.readMessage("123456789", [](rocket::AbstractProtocol::s_ptr msg_ptr){
             shared_ptr<rocket::TinyPBProtocol> message = dynamic_pointer_cast<rocket::TinyPBProtocol> (msg_ptr); //将父类的智能指针转化为子类的智能指针
-            DEBUGLOG("read message success, req_if[%s], get response %s",message->m_req_id.c_str(), message->m_pb_data.c_str());
+            DEBUGLOG("read message success, req_if[%s], get response %s",message->m_msg_id.c_str(), message->m_pb_data.c_str());
 
         });
     });

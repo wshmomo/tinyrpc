@@ -118,17 +118,17 @@ namespace rocket{
             for(int i =0; i < result.size(); i++){
                 //1.针对每一个请求，调用rpc方法，获取响应message
                 //2.将响应message放到发送缓冲区，监听可写事件回包
-                INFOLOG("success get request[%s] from client[%s]", result[i]->m_req_id.c_str(),m_peer_addr->toString().c_str());
+                INFOLOG("success get request[%s] from client[%s]", result[i]->m_msg_id.c_str(),m_peer_addr->toString().c_str());
                 std::shared_ptr<TinyPBProtocol> message = std::make_shared<TinyPBProtocol>();
                 // message->m_pb_data = "hello. this is rocket rpc test data";
-                // message->m_req_id = result[i]->m_req_id;
+                // message->m_msg_id = result[i]->m_msg_id;
                 RpcDispatcher::getRpcDispatcher()->dispatch(result[i],message,this);
                 replay_messages.emplace_back(message);
 
             }
             m_coder->encode(replay_messages,m_out_buffer);
             // m_out_buffer->wirteToBuffer(msg.c_str(), msg.length());
-            // INFOLOG("success get request[%s] from client[%s]", result[i]->m_req_id.c_str(),m_peer_addr->toString().c_str());
+            // INFOLOG("success get request[%s] from client[%s]", result[i]->m_msg_id.c_str(),m_peer_addr->toString().c_str());
 
 
             
@@ -139,13 +139,13 @@ namespace rocket{
             listenWrite();
 
         }else{
-            //从buffer里done得到 message对象, 判断是否req_id相等，相等读成功, 执行其回调
+            //从buffer里done得到 message对象, 判断是否msg_id相等，相等读成功, 执行其回调
 
             vector<AbstractProtocol::s_ptr> result;
             m_coder->decode(result,m_in_buffer);
             for(int i = 0; i < m_read_dones.size(); i++){
-                string req_id = result[i]->m_req_id;
-                auto it = m_read_dones.find(req_id);
+                string msg_id = result[i]->m_msg_id;
+                auto it = m_read_dones.find(msg_id);
                 if( it != m_read_dones.end()){
                     it->second(result[i]);  //result[i]->shared_from_this()：从这个对象中获取其智能指针
                 }
@@ -288,8 +288,8 @@ namespace rocket{
         m_write_dones.push_back(pair(message,done));
     }
 
-    void TcpConnection::pushReadMessage(const string& req_id,function<void(AbstractProtocol::s_ptr)> done){
-        m_read_dones.insert(make_pair(req_id,done));
+    void TcpConnection::pushReadMessage(const string& msg_id,function<void(AbstractProtocol::s_ptr)> done){
+        m_read_dones.insert(make_pair(msg_id,done));
 
     }
 

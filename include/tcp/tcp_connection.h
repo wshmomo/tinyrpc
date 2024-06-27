@@ -66,7 +66,7 @@ namespace rocket{
 
         void pushSendMessage(AbstractProtocol::s_ptr,function<void(AbstractProtocol::s_ptr)>);
 
-        void pushReadMessage(const string& req_id,function<void(AbstractProtocol::s_ptr)>);
+        void pushReadMessage(const string& msg_id,function<void(AbstractProtocol::s_ptr)>);
 
         NetAddr::s_ptr getLocaladdr();
         NetAddr::s_ptr getPeeraddr();
@@ -95,7 +95,7 @@ namespace rocket{
         vector<pair<AbstractProtocol::s_ptr,function<void(AbstractProtocol::s_ptr)>>> m_write_dones;
 
 
-        //key is req_id
+        //key is msg_id
         map<string ,function<void(AbstractProtocol::s_ptr)>> m_read_dones;
 
         AbstractCode* m_coder {NULL};

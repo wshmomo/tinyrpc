@@ -237,6 +237,7 @@ namespace rocket{
 
     void Eventloop::stop(){
         m_stop_flag = true;
+        wakeup();
 
     }
 
