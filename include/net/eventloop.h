@@ -1,4 +1,4 @@
-#pragma once
+// #pragma once
 #ifndef EVENTLOOP_H
 #define EVENTLOOP_H
 
@@ -11,6 +11,9 @@
 #include "fd_event.h"
 #include "wakeup_fd_event.h"
 #include "timer.h"
+#include "../common/log.h"
+#include "../common/util.h"
+
 using namespace std;
 
 namespace rocket{
@@ -39,6 +42,12 @@ namespace rocket{
 
         //添加定时任务的方法
         void addTimerEvent(TimerEvent::s_ptr event);
+        
+
+        //获取当前线程的Eventloop对象
+        static Eventloop* getCurrentEventloop();
+
+        bool isLooping();
 
 
 
@@ -71,6 +80,8 @@ namespace rocket{
         mutex m_mutex;
 
         Timer* m_timer {NULL};
+
+        bool m_is_looping {false};
 
     };
 }

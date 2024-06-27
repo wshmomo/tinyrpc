@@ -117,5 +117,38 @@ class {
 '''
 
 
+RPC服务端流程
+'''
+启动的时候就注册OrderService对象
+
+
+1.从buffer读取数据，然后decode得到请求的TinyPBProtobol对象，然后从请求的TinyPBProtocol得到 method_name, 从OrderService对象里根据service.method_name找到方法func
+2.找到对应的request type以及 response type
+3.将请求体里面的pb_data反序列化为request type的一个对象，声明一个空的reponse type对象
+4.func(request, reponse)，执行业务逻辑
+5.将response对象序列化为pb_data，在塞到TinyPBProtocol对象中。在做encode 然后塞到buffer里面，就会发送回包了。
+'''
+
+
+'''
+
+syntax = "proto3";   %表示proto3的语法
+option cc_generic_services = true;  %注意这里一定需要，表示我要生成service
+
+
+message makeOrderRequest{  %下单的请求结构体，我的钱，物品名称
+    int32 price = 1;
+    string goods = 2;
+}
+
+message makeOrderResponse{ %下单响应的结构体，返回信息res_info表示业务信息，order_id下单成功返回的订单号
+    int32 ret_code = 1;
+    string res_info = 2;
+    string order_id = 3;
+}
+
+'''
+
+
 
 

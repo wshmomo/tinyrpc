@@ -1,5 +1,4 @@
 #pragma once
-
 #ifndef FDEVENT_H
 #define FEEVENT_H
 
@@ -13,6 +12,7 @@ namespace rocket{
         enum TriggerEvent{
             IN_EVENT = EPOLLIN, // 读事件
             OUT_EVENT = EPOLLOUT,  //写事件
+            ERROR_EVENT = EPOLLERR, //错误事件
         };
 
         FDEvent();
@@ -25,6 +25,8 @@ namespace rocket{
 
         void listen(TriggerEvent event_type, std::function<void()> callback);
 
+        void cancle(TriggerEvent event_type);
+
         int getFd() const{
             return m_fd;
         }
@@ -32,6 +34,8 @@ namespace rocket{
         epoll_event getEpollEvent() {
             return m_listen_events;
         }
+
+        void setNonBlock();
     
     protected:
         int m_fd {-1};

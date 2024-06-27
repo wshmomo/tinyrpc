@@ -1,8 +1,9 @@
+// #pragma once
 #ifndef IOTHREADGROUP_H
 #define IOTHREADGROUP_H
 
 #include <vector>
-#include "log.h"
+#include "../common/log.h"
 #include "io_thread.h"
 
 
