@@ -7,6 +7,7 @@
 #include "../net/eventloop.h"
 #include "tcp_connection.h"
 #include "../coder/abstract_protocol.h"
+#include "../net/timer_event.h"
 
 namespace rocket{
     class TcpClient{
@@ -30,9 +31,24 @@ namespace rocket{
         void readMessage(const string& msg_id, std::function<void(AbstractProtocol::s_ptr )> done);
 
         void stop();
+
+
+        int getConnectErrorCode();
+
+        string getConnectErrorInfo();
+
+        NetAddr::s_ptr getPeerAddr();
+
+        NetAddr::s_ptr getLocalAddr();
+
+        void initLocalAddr();
+
+        void addTimerEvent(TimerEvent::s_ptr timer_event);
+
     
     private:
         NetAddr::s_ptr m_peer_addr;  //对端的网络地址，代表我们要connect的地址
+        NetAddr::s_ptr m_local_addr;
         Eventloop* m_event_loop {NULL};  //代表我们当前所用的Eventloop,指针最好要初始化
 
         int m_fd {-1};  //对端fd

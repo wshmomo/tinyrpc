@@ -68,24 +68,48 @@ void test_tcp_client(){
 }
 
 void test_rpc_channel(){
-    rocket::IPNetAddr::s_ptr addr = make_shared<rocket::IPNetAddr>("127.0.0.1",8001); 
-    std::shared_ptr<rocket::RpcChannel> channel = std::make_shared<rocket::RpcChannel>(addr);
-    std::shared_ptr<makeOrderRequest> request = std::make_shared<makeOrderRequest>();
+    // rocket::IPNetAddr::s_ptr addr = make_shared<rocket::IPNetAddr>("127.0.0.1",8001); 
+    // std::shared_ptr<rocket::RpcChannel> channel = std::make_shared<rocket::RpcChannel>(addr);
+    NEWRPCCHANNEL("127.0.0.1:8001", channel);  //为什么要把这些给定义在rpc_channel.h里面呢，因为为了保证在CHANNEL析构的时候，这些东西也跟着析构
+
+
+    // std::shared_ptr<makeOrderRequest> request = std::make_shared<makeOrderRequest>();
+    NEWMESSAGE(makeOrderRequest, request);  //相当于    std::shared_ptr<makeOrderRequest> request = std::make_shared<makeOrderRequest>();
+
     request->set_price(100);
     request->set_goods("apple");
-    std::shared_ptr<makeOrderResponse> response = std::make_shared<makeOrderResponse>();
+    // std::shared_ptr<makeOrderResponse> response = std::make_shared<makeOrderResponse>();
+    NEWMESSAGE(makeOrderResponse, response);
 
-    std::shared_ptr<rocket::RpcController> controller = std::make_shared<rocket::RpcController>();
+    // std::shared_ptr<rocket::RpcController> controller = std::make_shared<rocket::RpcController>();
+
+    NEWRPCCONTROLLER(controller);
+
     controller->SetMsgId("99998888");
-     std::shared_ptr<rocket::RpcClosure> closure = std::make_shared<rocket::RpcClosure>([request,response,channel]() mutable{
-        INFOLOG("call rpc success, reuqest[%s], response[%s]", request->ShortDebugString().c_str(), response->ShortDebugString().c_str());
+    //需要设置一个超时时间
+    controller->SetTimeout(10000);  //超时时间设置成5
+     std::shared_ptr<rocket::RpcClosure> closure = std::make_shared<rocket::RpcClosure>([request,response,channel,controller]() mutable{
+        if(controller->GetErrorCode() == 0){
+            INFOLOG("call rpc success, reuqest[%s], response[%s]", request->ShortDebugString().c_str(), response->ShortDebugString().c_str());
+            //执行业务逻辑
+            if(response->order_id() == "xxx"){
+                // xxx
+
+            }
+
+        }else{
+            ERRORLOG("call rpc error, reuqest[%s], error code[%d], error info[%s]", request->ShortDebugString().c_str(), 
+                    controller->GetErrorCode(), controller->GetErrorInfo().c_str());
+
+        }
+
         INFOLOG("now exit eventloop");
         channel->getTcpClient()->stop();
         channel.reset();
      });
 
+
      channel->Init(controller,request,response,closure);
-    
     //客户端的纯根
     Order_Stub stub(channel.get());
 

@@ -8,6 +8,7 @@
 #include "../../include/common/log.h"
 #include "../../include/tcp/tcp_client.h"
 #include "../../include/common/error_code.h"
+#include "../../include/net/timer_event.h"
 
 namespace rocket
 {
@@ -65,17 +66,47 @@ namespace rocket
         //在此之前成功构造了个请求的协议对象（TinyPBrotocol类型 req_protocol）
 
 
+        //1.设置超时； 2.将超时任务添加到epoll里面
+        m_timer_event = std::make_shared<TimerEvent>(my_controller->GetTimeout(),false, [my_controller,channel]() mutable{
+            my_controller->StartCancel();
+            my_controller->SetError(ERROR_RPC_CALL_TIMEOUT, "rpc call timeout" + std::to_string(my_controller->GetTimeout()));
+            if(channel->getClosure()){
+                channel->getClosure()->Run();
+            }
+
+            channel.reset();
+
+
+        });
+
+        m_client->addTimerEvent(m_timer_event);
+
         m_client->connect([req_protocol,channel]()mutable{
-            channel->getTcpClient()->writeMessage(req_protocol,[req_protocol](AbstractProtocol::s_ptr msg){//协程写到这里就不用那么多回调函数了？整体代码看起来是同步的代码，但是性能是异步的性能。
-                INFOLOG("%s |  send request success, call method name[%s]",req_protocol->m_msg_id.c_str(), req_protocol->m_method_name.c_str())
+            RpcController* my_controller = (RpcController*)(channel->getController());
+            if(channel->getTcpClient()->getConnectErrorCode() != 0){
+                ERRORLOG("%s | connect error, error code[%d], error info[%s], peer addr[%s]", req_protocol->m_msg_id.c_str(),channel->getTcpClient()->getConnectErrorCode(),
+                         channel->getTcpClient()->getConnectErrorInfo().c_str(), channel->getTcpClient()->getPeerAddr()->toString().c_str());
+                my_controller->SetError(channel->getTcpClient()->getConnectErrorCode(), channel->getTcpClient()->getConnectErrorInfo());
+                return;
+
+            }
+            channel->getTcpClient()->writeMessage(req_protocol,[req_protocol,channel](AbstractProtocol::s_ptr msg){//协程写到这里就不用那么多回调函数了？整体代码看起来是同步的代码，但是性能是异步的性能。
+                INFOLOG("%s |  send request success, call method name[%s], peer addr[%s], local addr[%s]",req_protocol->m_msg_id.c_str(), 
+                        req_protocol->m_method_name.c_str(), channel->getTcpClient()->getPeerAddr()->toString().c_str(),
+                        channel->getTcpClient()->getLocalAddr()->toString().c_str());
 
             });
 
-            channel->getTcpClient()->readMessage(req_protocol->m_msg_id,[channel](AbstractProtocol::s_ptr msg) mutable{
+            channel->getTcpClient()->readMessage(req_protocol->m_msg_id,[channel,my_controller](AbstractProtocol::s_ptr msg) mutable{
                 std::shared_ptr<TinyPBProtocol> rsp_protocol = std::dynamic_pointer_cast<TinyPBProtocol>(msg);
-                INFOLOG("%s | sucess get rpc response, call method name[%s]", rsp_protocol->m_msg_id.c_str(), rsp_protocol->m_method_name.c_str());
+                INFOLOG("%s | sucess get rpc response, call method name[%s], peer addr[%s], local addr[%s]", rsp_protocol->m_msg_id.c_str(), 
+                        rsp_protocol->m_method_name.c_str(),channel->getTcpClient()->getPeerAddr()->toString().c_str(),
+                        channel->getTcpClient()->getLocalAddr()->toString().c_str());
                 std::shared_ptr<TinyPBProtocol> req_protocol = std::make_shared<TinyPBProtocol>();
-                RpcController* my_controller = (RpcController*)(channel->getController());
+                
+                //读包成功说明rpc call成功，所以我们需要删除这个定时任务
+                channel->getTimerEvent()->setCancled(true);
+
                 //回包之后没有反序列化，这里需要反序列化一下子
                 if(channel->getResponse()->ParseFromString(rsp_protocol->m_pb_data)){
                     ERRORLOG("%s | deserialize error", rsp_protocol->m_msg_id.c_str());
@@ -88,6 +119,14 @@ namespace rocket
                     return;
 
                 }
+
+                INFOLOG("%s | call rpc success, call method name[%s],peer addr[%s], local addr[%s]",
+                       rsp_protocol->m_msg_id.c_str(), rsp_protocol->m_method_name.c_str(),
+                       channel->getTcpClient()->getPeerAddr()->toString().c_str(),
+                        channel->getTcpClient()->getLocalAddr()->toString().c_str());
+
+
+                
                 if(channel->getClosure()){
                     channel->getClosure()->Run();
                 }
@@ -131,6 +170,10 @@ namespace rocket
 
     TcpClient* RpcChannel::getTcpClient(){
         return m_client.get();
+    }
+
+    TimerEvent* RpcChannel::getTimerEvent(){
+        return m_timer_event.get();
     }
     
 } // namespace name

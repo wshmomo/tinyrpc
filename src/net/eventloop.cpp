@@ -207,6 +207,10 @@ namespace rocket{
                         addTask(fd_event->handler(FDEvent::OUT_EVENT));
 
                     }
+                    // if(!(trigger_event.events & EPOLLOUT) && !(trigger_event.events & EPOLLIN)){
+                    //     int event = (int)(trigger_event.events);
+                    //     DEBUGLOG("unkown event = %d",event);
+                    // }
                     // EPOLLHUP EPOLLERR
                     if (trigger_event.events & EPOLLERR) {
                         DEBUGLOG("fd %d trigger EPOLLERROR event", fd_event->getFd())
@@ -214,7 +218,7 @@ namespace rocket{
                         deleteEpollEvent(fd_event);
                         if (fd_event->handler(FDEvent::ERROR_EVENT) != nullptr) {
                             DEBUGLOG("fd %d add error callback", fd_event->getFd())
-                            addTask(fd_event->handler(FDEvent::OUT_EVENT));
+                            addTask(fd_event->handler(FDEvent::OUT_EVENT));  //开始有错误回调函数，所以需要把相同的事件再添加进去，同OUT_EVENT，所以任务里面添加了两次connect的listen里面的回调函数两次
                         }
                     }
                 

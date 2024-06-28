@@ -151,4 +151,11 @@ message makeOrderResponse{ %下单响应的结构体，返回信息res_info表�
 
 
 
+'''
+将日志改成异步的，并且需要打印到文件中
+
+'''
+
+
+
 
